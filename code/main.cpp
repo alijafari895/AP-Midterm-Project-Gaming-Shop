@@ -25,14 +25,27 @@ class games : public product {
         public:
                 games(string name, int price, double amount): product( name , price , amount ){}
 
+                void show() override {
+                        cout << " Game | " << name << " | " << price << " | " << amount << endl;
+                }
+
 };
 class consols : public product {
         public:
                 consols(string name, int price, double amount) : product( name , price , amount ) {}
+
+                void show() override {
+                        cout << " Consol | " << name << " | " << price << " | " << amount << endl;
+                }
+
 };
 class headphone : public product {
         public:
                 headphone(string name, int price, double amount) : product( name , price , amount ) {}
+
+                void show() override {
+                        cout << "Headphon | " << name << " | " << price << " | " << amount << endl;
+                }
 };
 
 
