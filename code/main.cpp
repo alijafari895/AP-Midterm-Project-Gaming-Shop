@@ -79,7 +79,7 @@ public:
             all_games[i].show();
         }
 
-        cout << "\n🕹 Consoles List:" << endl;
+        cout << "\n Consoles List:" << endl;
         for (int i = 0; i < all_consols.size(); i++) {
             all_consols[i].show();
         }
@@ -224,6 +224,37 @@ void adminMenu(gamingshop& shop) {
     } while (choice != 0);
 }
 
+void customerMenu(gamingshop& shop) {
+    int choice;
+    do {
+        cout << "\n--- customer Menu ---\n";
+        cout << "1. Show all products\n";
+        cout << "2. Search product\n";
+        cout << "3. Charge customer wallet\n";
+        cout << "4. Show customer wallet\n";
+        cout << "5. add to cart\n";
+        cout << "6. view cart\n";
+        cout << "0. Exit\n";
+        cout << "Your choice: ";
+        cin >> choice;
+
+         if (choice == 1) {
+            shop.showAllProducts();
+        } else if (choice == 2) {
+            string name;
+            cout << "Product name: "; cin >> name;
+            shop.searchProduct(name);
+        } else if (choice == 3) {
+            int amount;
+            cout << "Amount: "; cin >> amount;
+            shop.chargeWallet(amount);
+        } else if (choice == 4) {
+            shop.showWallet();
+        }
+
+    } while (choice != 0);
+}
+
 int main() {
     gamingshop shop;
     string role;
@@ -231,16 +262,27 @@ int main() {
     cout << "Login as (admin/customer): ";
     cin >> role;
 
-    if (role == "admin") {
+    if (role == "admin") 
+    {
         string pass;
         cout << "Password: ";
         cin >> pass;
-        if (pass == "admin1admin") {
+        if (pass == "admin1admin") 
+        {
             adminMenu(shop);
-        } else {
+
+        } 
+        else 
+        {
             cout << "Incorrect password. Access denied!\n";
         }
-    } else {
+    } 
+    else if (role =="customer")
+    {
+        customerMenu(shop);
+    }
+    else 
+    {
         cout << " Only admin menu is implemented.\n";
     }
 
