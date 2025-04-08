@@ -75,26 +75,44 @@ public:
 
     void showAllProducts() {
         cout << "\n🎮 Games List:" << endl;
-        for (auto& g : all_games) g.show();
+        for (int i = 0; i < all_games.size(); i++) {
+            all_games[i].show();
+        }
 
         cout << "\n🕹️ Consoles List:" << endl;
-        for (auto& c : all_consols) c.show();
+        for (int i = 0; i < all_consols.size(); i++) {
+            all_consols[i].show();
+        }
 
         cout << "\n🎧 Headphones List:" << endl;
-        for (auto& h : all_headphones) h.show();
+        for (int i = 0; i < all_headphones.size(); i++) {
+            all_headphones[i].show();
+        }
     }
 
     void searchProduct(string keyword) {
         bool found = false;
 
-        for (auto& g : all_games)
-            if (g.getName() == keyword) { g.show(); found = true; }
+        for (int i = 0; i < all_games.size(); i++) {
+            if (all_games[i].getName() == keyword) {
+                all_games[i].show();
+                found = true;
+            }
+        }
 
-        for (auto& c : all_consols)
-            if (c.getName() == keyword) { c.show(); found = true; }
+        for (int i = 0; i < all_consols.size(); i++) {
+            if (all_consols[i].getName() == keyword) {
+                all_consols[i].show();
+                found = true;
+            }
+        }
 
-        for (auto& h : all_headphones)
-            if (h.getName() == keyword) { h.show(); found = true; }
+        for (int i = 0; i < all_headphones.size(); i++) {
+            if (all_headphones[i].getName() == keyword) {
+                all_headphones[i].show();
+                found = true;
+            }
+        }
 
         if (!found)
             cout << "❌ No product found with that name.\n";
@@ -103,20 +121,34 @@ public:
     void totalValue() {
         int total = 0;
 
-        for (auto& g : all_games) total += g.getPrice() * g.getStock();
-        for (auto& c : all_consols) total += c.getPrice() * c.getStock();
-        for (auto& h : all_headphones) total += h.getPrice() * h.getStock();
+        for (int i = 0; i < all_games.size(); i++) {
+            total += all_games[i].getPrice() * all_games[i].getStock();
+        }
+
+        for (int i = 0; i < all_consols.size(); i++) {
+            total += all_consols[i].getPrice() * all_consols[i].getStock();
+        }
+
+        for (int i = 0; i < all_headphones.size(); i++) {
+            total += all_headphones[i].getPrice() * all_headphones[i].getStock();
+        }
 
         cout << "\n💵 Total value of all products: " << total << endl;
     }
 
     void showByCategory(string cat) {
         if (cat == "game") {
-            for (auto& g : all_games) g.show();
+            for (int i = 0; i < all_games.size(); i++) {
+                all_games[i].show();
+            }
         } else if (cat == "consol") {
-            for (auto& c : all_consols) c.show();
+            for (int i = 0; i < all_consols.size(); i++) {
+                all_consols[i].show();
+            }
         } else if (cat == "headphone") {
-            for (auto& h : all_headphones) h.show();
+            for (int i = 0; i < all_headphones.size(); i++) {
+                all_headphones[i].show();
+            }
         } else {
             cout << "❌ Invalid category!" << endl;
         }
