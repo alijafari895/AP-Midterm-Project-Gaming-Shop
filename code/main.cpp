@@ -66,25 +66,25 @@ public:
 
     void chargeWallet(int amount) {
         wallet += amount;
-        cout << "\n💳 Wallet charged. Current balance: " << wallet << endl;
+        cout << "\n Wallet charged. Current balance: " << wallet << endl;
     }
 
     void showWallet() {
-        cout << "\n💰 Shop wallet balance: " << wallet << endl;
+        cout << "\n Shop wallet balance: " << wallet << endl;
     }
 
     void showAllProducts() {
-        cout << "\n🎮 Games List:" << endl;
+        cout << "\n Games List:" << endl;
         for (int i = 0; i < all_games.size(); i++) {
             all_games[i].show();
         }
 
-        cout << "\n🕹️ Consoles List:" << endl;
+        cout << "\n🕹 Consoles List:" << endl;
         for (int i = 0; i < all_consols.size(); i++) {
             all_consols[i].show();
         }
 
-        cout << "\n🎧 Headphones List:" << endl;
+        cout << "\n Headphones List:" << endl;
         for (int i = 0; i < all_headphones.size(); i++) {
             all_headphones[i].show();
         }
@@ -115,7 +115,7 @@ public:
         }
 
         if (!found)
-            cout << "❌ No product found with that name.\n";
+            cout << " No product found with that name.\n";
     }
 
     void totalValue() {
@@ -133,7 +133,7 @@ public:
             total += all_headphones[i].getPrice() * all_headphones[i].getStock();
         }
 
-        cout << "\n💵 Total value of all products: " << total << endl;
+        cout << "\nTotal value of all products: " << total << endl;
     }
 
     void showByCategory(string cat) {
@@ -150,7 +150,7 @@ public:
                 all_headphones[i].show();
             }
         } else {
-            cout << "❌ Invalid category!" << endl;
+            cout << "Invalid category!" << endl;
         }
     }
 
@@ -158,11 +158,11 @@ public:
         for (int i = 0; i < all_games.size(); i++) {
             if (all_games[i].getName() == name) {
                 all_games.erase(all_games.begin() + i);
-                cout << "✅ Game removed.\n";
+                cout << " Game removed.\n";
                 return;
             }
         }
-        cout << "❌ Game not found.\n";
+        cout << " Game not found.\n";
     }
 };
 
@@ -238,10 +238,10 @@ int main() {
         if (pass == "admin1admin") {
             adminMenu(shop);
         } else {
-            cout << "❌ Incorrect password. Access denied!\n";
+            cout << "Incorrect password. Access denied!\n";
         }
     } else {
-        cout << "⛔ Only admin menu is implemented.\n";
+        cout << " Only admin menu is implemented.\n";
     }
 
     return 0;
