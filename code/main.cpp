@@ -16,6 +16,7 @@ public:
         this->quantity = quantity;
     }
 
+    // نشان دادن محصولات
     void show() const {
         cout << "\n--------------------------" << endl;
         cout << "Name: " << name << endl;
@@ -52,6 +53,7 @@ private:
     int wallet = 0;
 
 public:
+// اضافه کردن محصولات
     void addGame(string name, int price, double amount) {
         all_games.push_back(games(name, price, amount));
     }
@@ -64,15 +66,18 @@ public:
         all_headphones.push_back(headphone(name, price, amount));
     }
 
+    // افزایش کیف پول فروشگاه
     void chargeWallet(int amount) {
         wallet += amount;
         cout << "\n Wallet charged. Current balance: " << wallet << endl;
     }
 
+    // نشان دادن کیف پول فروشگاه
     void showWallet() {
         cout << "\n Shop wallet balance: " << wallet << endl;
     }
 
+    //نشان دادن محصولات
     void showAllProducts() {
         cout << "\n Games List:" << endl;
         for (int i = 0; i < all_games.size(); i++) {
@@ -90,6 +95,7 @@ public:
         }
     }
 
+    // جست وجوی محصولات
     void searchProduct(string keyword) {
         bool found = false;
 
@@ -118,6 +124,7 @@ public:
             cout << " No product found with that name.\n";
     }
 
+    // ارزش کل محصولات 
     void totalValue() {
         int total = 0;
 
@@ -136,6 +143,7 @@ public:
         cout << "\nTotal value of all products: " << total << endl;
     }
 
+    //نشان دادن محصولات
     void showByCategory(string cat) {
         if (cat == "game") {
             for (int i = 0; i < all_games.size(); i++) {
@@ -154,6 +162,7 @@ public:
         }
     }
 
+    // تابع حذف محصولات
     void removeGame(string name) {
         for (int i = 0; i < all_games.size(); i++) {
             if (all_games[i].getName() == name) {
@@ -166,6 +175,7 @@ public:
     }
 };
 
+// منوی ادمین
 void adminMenu(gamingshop& shop) {
     int choice;
     do {
@@ -224,6 +234,7 @@ void adminMenu(gamingshop& shop) {
     } while (choice != 0);
 }
 
+// منوی مشتری
 void customerMenu(gamingshop& shop) {
     int choice;
     do {
@@ -255,6 +266,7 @@ void customerMenu(gamingshop& shop) {
     } while (choice != 0);
 }
 
+// صفحه اصلی
 int main() {
     gamingshop shop;
     string role;
