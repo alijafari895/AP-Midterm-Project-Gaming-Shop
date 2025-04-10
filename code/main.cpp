@@ -190,6 +190,13 @@ public:
     void addtocart(string name , int price , int amount) {
         all_cart.push_back(games(name, price, amount));
     }
+
+    //نمایش سبد خرید
+    void viewcart(){
+        for (int i = 0; i < all_cart.size(); i++) {
+            all_cart[i].show();
+        }
+    }
 };
 
 // منوی ادمین
