@@ -50,6 +50,7 @@ private:
     vector<games> all_games;
     vector<consols> all_consols;
     vector<headphone> all_headphones;
+    vector<product> all_cart;
     int wallet , Wallet= 0;
 
 public:
@@ -154,7 +155,7 @@ public:
         cout << "\nTotal value of all products: " << total << endl;
     }
 
-    //نشان دادن محصولات
+    //نشان دادن محصولات براساس گروه بندی
     void showByCategory(string cat) {
         if (cat == "game") {
             for (int i = 0; i < all_games.size(); i++) {
@@ -183,6 +184,11 @@ public:
             }
         }
         cout << " Game not found.\n";
+    }
+
+    //تابع افزودن به سبد خرید
+    void addtocart(string name , int price , int amount) {
+        all_cart.push_back(games(name, price, amount));
     }
 };
 
