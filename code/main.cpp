@@ -50,7 +50,7 @@ private:
     vector<games> all_games;
     vector<consols> all_consols;
     vector<headphone> all_headphones;
-    int wallet = 0;
+    int wallet , Wallet= 0;
 
 public:
 // اضافه کردن محصولات
@@ -75,6 +75,17 @@ public:
     // نشان دادن کیف پول فروشگاه
     void showWallet() {
         cout << "\n Shop wallet balance: " << wallet << endl;
+    }
+
+    // افزایش کیف پول مشتری
+    void chargeWalletCustomer(int Amount) {
+        Wallet += Amount;
+        cout << "\n Wallet charged. Current balance: " << wallet << endl;
+    }
+
+    // نشان دادن کیف پول مشتری
+    void showWalletcustomer() {
+        cout << "\n Shop wallet balance: " << Wallet << endl;
     }
 
     //نشان دادن محصولات
@@ -256,11 +267,11 @@ void customerMenu(gamingshop& shop) {
             cout << "Product name: "; cin >> name;
             shop.searchProduct(name);
         } else if (choice == 3) {
-            int amount;
-            cout << "Amount: "; cin >> amount;
-            shop.chargeWallet(amount);
+            int Amount;
+            cout << "Amount: "; cin >> Amount;
+            shop.chargeWalletCustomer(Amount);
         } else if (choice == 4) {
-            shop.showWallet();
+            shop.showWalletcustomer();
         }
 
     } while (choice != 0);
