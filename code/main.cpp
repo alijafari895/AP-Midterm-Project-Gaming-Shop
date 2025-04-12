@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -16,7 +17,7 @@ public:
         this->quantity = quantity;
     }
 
-    // نشان دادن محصولات
+    // نمایش محصولات
     void show() const {
         cout << "\n--------------------------" << endl;
         cout << "Name: " << name << endl;
@@ -28,6 +29,7 @@ public:
     string getName() const { return name; }
     int getPrice() const { return price; }
     double getStock() const { return quantity; }
+    void reduceStock(double amount) { quantity -= amount; }
 };
 
 class games : public product {
@@ -51,10 +53,11 @@ private:
     vector<consols> all_consols;
     vector<headphone> all_headphones;
     vector<product> all_cart;
-    int wallet , Wallet= 0;
+    int wallet = 0;
+    int Wallet = 0;
 
 public:
-// اضافه کردن محصولات
+    // اضافه کردن محصولات
     void addGame(string name, int price, double amount) {
         all_games.push_back(games(name, price, amount));
     }
@@ -81,101 +84,63 @@ public:
     // افزایش کیف پول مشتری
     void chargeWalletCustomer(int Amount) {
         Wallet += Amount;
-        cout << "\n Wallet charged. Current balance: " << wallet << endl;
+        cout << "\n Customer wallet charged. Current balance: " << Wallet << endl;
     }
 
     // نشان دادن کیف پول مشتری
     void showWalletcustomer() {
-        cout << "\n Shop wallet balance: " << Wallet << endl;
+        cout << "\n Customer wallet balance: " << Wallet << endl;
     }
 
-    //نشان دادن محصولات
+    // نمایش همه محصولات
     void showAllProducts() {
         cout << "\n Games List:" << endl;
-        for (int i = 0; i < all_games.size(); i++) {
-            all_games[i].show();
-        }
+        for (auto& g : all_games) g.show();
 
         cout << "\n Consoles List:" << endl;
-        for (int i = 0; i < all_consols.size(); i++) {
-            all_consols[i].show();
-        }
+        for (auto& c : all_consols) c.show();
 
         cout << "\n Headphones List:" << endl;
-        for (int i = 0; i < all_headphones.size(); i++) {
-            all_headphones[i].show();
-        }
+        for (auto& h : all_headphones) h.show();
     }
 
-    
-    // جست وجوی محصولات
+    // جستجوی محصولات
     void searchProduct(string keyword) {
         bool found = false;
 
-        for (int i = 0; i < all_games.size(); i++) {
-            if (all_games[i].getName() == keyword) {
-                all_games[i].show();
-                found = true;
-            }
-        }
+        for (auto& g : all_games)
+            if (g.getName() == keyword) { g.show(); found = true; }
 
-        for (int i = 0; i < all_consols.size(); i++) {
-            if (all_consols[i].getName() == keyword) {
-                all_consols[i].show();
-                found = true;
-            }
-        }
+        for (auto& c : all_consols)
+            if (c.getName() == keyword) { c.show(); found = true; }
 
-        for (int i = 0; i < all_headphones.size(); i++) {
-            if (all_headphones[i].getName() == keyword) {
-                all_headphones[i].show();
-                found = true;
-            }
-        }
+        for (auto& h : all_headphones)
+            if (h.getName() == keyword) { h.show(); found = true; }
 
         if (!found)
             cout << " No product found with that name.\n";
     }
 
-    // ارزش کل محصولات 
+    // ارزش کل محصولات
     void totalValue() {
         int total = 0;
 
-        for (int i = 0; i < all_games.size(); i++) {
-            total += all_games[i].getPrice() * all_games[i].getStock();
-        }
-
-        for (int i = 0; i < all_consols.size(); i++) {
-            total += all_consols[i].getPrice() * all_consols[i].getStock();
-        }
-
-        for (int i = 0; i < all_headphones.size(); i++) {
-            total += all_headphones[i].getPrice() * all_headphones[i].getStock();
-        }
+        for (auto& g : all_games) total += g.getPrice() * g.getStock();
+        for (auto& c : all_consols) total += c.getPrice() * c.getStock();
+        for (auto& h : all_headphones) total += h.getPrice() * h.getStock();
 
         cout << "\nTotal value of all products: " << total << endl;
     }
 
-    //نشان دادن محصولات براساس گروه بندی
+    // نمایش محصولات بر اساس دسته‌بندی
     void showByCategory(string cat) {
-        if (cat == "game") {
-            for (int i = 0; i < all_games.size(); i++) {
-                all_games[i].show();
-            }
-        } else if (cat == "consol") {
-            for (int i = 0; i < all_consols.size(); i++) {
-                all_consols[i].show();
-            }
-        } else if (cat == "headphone") {
-            for (int i = 0; i < all_headphones.size(); i++) {
-                all_headphones[i].show();
-            }
-        } else {
-            cout << "Invalid category!" << endl;
-        }
+        if (cat == "game") for (auto& g : all_games) g.show();
+        else if (cat == "consol") for (auto& c : all_consols) c.show();
+        else if (cat == "headphone") for (auto& h : all_headphones) h.show();
+        else cout << "Invalid category!" << endl;
     }
 
-    // تابع حذف محصولات
+    // حذف بازی
     void removeGame(string name) {
         for (int i = 0; i < all_games.size(); i++) {
             if (all_games[i].getName() == name) {
@@ -187,16 +152,30 @@ public:
         cout << " Game not found.\n";
     }
 
-    //تابع افزودن به سبد خرید
-    void addtocart(string name , int price , int amount) {
-        all_cart.push_back(games(name, price, amount));
+    // افزودن به سبد خرید
+    void addtocart(string name, int price, int amount) {
+        all_cart.push_back(product(name, price, amount));
     }
 
-    //نمایش سبد خرید
-    void viewcart(){
-        for (int i = 0; i < all_cart.size(); i++) {
-            all_cart[i].show();
+    // نمایش سبد خرید
+    void viewcart() {
+        for (auto& item : all_cart) item.show();
+    }
+
+    // خرید سبد
+    void buyCart() {
+        int total = 0;
+        for (auto& item : all_cart) total += item.getPrice() * item.getStock();
+
+        if (total > Wallet) {
+            cout << "Not enough balance. Please charge your wallet.\n";
+            return;
         }
+
+        Wallet -= total;
+        wallet += total;
+        all_cart.clear();
+        cout << "Purchase successful!\n";
     }
 };
 
@@ -218,43 +197,30 @@ void adminMenu(gamingshop& shop) {
         cout << "Your choice: ";
         cin >> choice;
 
-        if (choice == 1) {
+        if (choice == 1 || choice == 2 || choice == 3) {
             string name; int price; double qty;
-            cout << "Game name: "; cin >> name;
+            cout << "Name: "; cin >> name;
             cout << "Price: "; cin >> price;
             cout << "Quantity: "; cin >> qty;
-            shop.addGame(name, price, qty);
-        } else if (choice == 2) {
-            string name; int price; double qty;
-            cout << "Console name: "; cin >> name;
-            cout << "Price: "; cin >> price;
-            cout << "Quantity: "; cin >> qty;
-            shop.addConsol(name, price, qty);
-        } else if (choice == 3) {
-            string name; int price; double qty;
-            cout << "Headphone name: "; cin >> name;
-            cout << "Price: "; cin >> price;
-            cout << "Quantity: "; cin >> qty;
-            shop.addHeadphone(name, price, qty);
+
+            if (choice == 1) shop.addGame(name, price, qty);
+            else if (choice == 2) shop.addConsol(name, price, qty);
+            else shop.addHeadphone(name, price, qty);
         } else if (choice == 4) {
             string name;
             cout << "Game name to remove: "; cin >> name;
             shop.removeGame(name);
-        } else if (choice == 5) {
-            shop.showAllProducts();
-        } else if (choice == 6) {
+        } else if (choice == 5) shop.showAllProducts();
+        else if (choice == 6) {
             string name;
             cout << "Product name: "; cin >> name;
             shop.searchProduct(name);
-        } else if (choice == 7) {
-            shop.totalValue();
-        } else if (choice == 8) {
+        } else if (choice == 7) shop.totalValue();
+        else if (choice == 8) {
             int amount;
             cout << "Amount: "; cin >> amount;
             shop.chargeWallet(amount);
-        } else if (choice == 9) {
-            shop.showWallet();
-        }
+        } else if (choice == 9) shop.showWallet();
 
     } while (choice != 0);
 }
@@ -263,20 +229,20 @@ void adminMenu(gamingshop& shop) {
 void customerMenu(gamingshop& shop) {
     int choice;
     do {
-        cout << "\n--- customer Menu ---\n";
+        cout << "\n--- Customer Menu ---\n";
         cout << "1. Show all products\n";
         cout << "2. Search product\n";
         cout << "3. Charge customer wallet\n";
         cout << "4. Show customer wallet\n";
-        cout << "5. add to cart\n";
-        cout << "6. view cart\n";
+        cout << "5. Add to cart\n";
+        cout << "6. View cart\n";
+        cout << "7. Buy cart\n";
         cout << "0. Exit\n";
         cout << "Your choice: ";
         cin >> choice;
 
-         if (choice == 1) {
-            shop.showAllProducts();
-        } else if (choice == 2) {
+        if (choice == 1) shop.showAllProducts();
+        else if (choice == 2) {
             string name;
             cout << "Product name: "; cin >> name;
             shop.searchProduct(name);
@@ -284,9 +250,16 @@ void customerMenu(gamingshop& shop) {
             int Amount;
             cout << "Amount: "; cin >> Amount;
             shop.chargeWalletCustomer(Amount);
-        } else if (choice == 4) {
-            shop.showWalletcustomer();
-        }
+        } else if (choice == 4) shop.showWalletcustomer();
+        else if (choice == 5) {
+            string name;
+            int price, amount;
+            cout << "Name: "; cin >> name;
+            cout << "Price: "; cin >> price;
+            cout << "Amount: "; cin >> amount;
+            shop.addtocart(name, price, amount);
+        } else if (choice == 6) shop.viewcart();
+        else if (choice == 7) shop.buyCart();
 
     } while (choice != 0);
 }
@@ -294,34 +267,28 @@ void customerMenu(gamingshop& shop) {
 // صفحه اصلی
 int main() {
     gamingshop shop;
-    string role;
 
-    cout << "Login as (admin/customer): ";
-    cin >> role;
+    while (true) {
+        string role;
 
-    if (role == "admin") 
-    {
-        string pass;
-        cout << "Password: ";
-        cin >> pass;
-        if (pass == "admin1admin") 
-        {
-            adminMenu(shop);
+        cout << "Login as (admin/customer): ";
+        cin >> role;
 
-        } 
-        else 
-        {
-            cout << "Incorrect password. Access denied!\n";
+        if (role == "admin") {
+            string pass;
+            cout << "Password: ";
+            cin >> pass;
+            if (pass == "admin1admin") {
+                adminMenu(shop);
+            } else {
+                cout << "Incorrect password. Access denied!\n";
+            }
+        } else if (role == "customer") {
+            customerMenu(shop);
+        } else {
+            cout << "Only admin and customer roles are supported.\n";
         }
-    } 
-    else if (role =="customer")
-    {
-        customerMenu(shop);
-    }
-    else 
-    {
-        cout << " Only admin menu is implemented.\n";
-    }
 
+    }
     return 0;
 }
